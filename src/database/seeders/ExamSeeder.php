@@ -24,11 +24,20 @@ class ExamSeeder extends Seeder
             'explanation_text' => '単純な計算問題。',
         ]);
         DB::table('exams')->insert([
-            'exam_year_id' => 2,
-            'question_number' => 1,
+            'exam_year_id' => 1,
+            'question_number' => 2,
+            'question_sub_number' => 1,
             'question_text' => '(3a + b) / 4 - (a-7b) / 8',
             'answer' => '(5a + 9b) / 8',
             'explanation_text' => '分数の通分がポイント。',
+        ]);
+        DB::table('exams')->insert([
+            'exam_year_id' => 1,
+            'question_number' => 2,
+            'question_sub_number' => 2,
+            'question_text' => '(2 + √6)^2',
+            'answer' => '10 + 4√6',
+            'explanation_text' => '(a + b)^2 = a^2 + 2ab + b^2',
         ]);
     }
 }
