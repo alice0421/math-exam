@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('results', function (Blueprint $table) {
             $table->foreignId('exam_id')->constrained('exams')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('user_id')->constrained('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->string('input');
             $table->boolean('is_correct');
             $table->primary(['exam_id', 'user_id']);
             $table->timestamps();

@@ -17,7 +17,7 @@ class ExamYearSeeder extends Seeder
     {
         for ($i = 2022; $i >= 2014; $i--) {
             DB::table('exam_years')->insert([
-                'year' => (string) $i,
+                'year' => (string) $i. '年度',
             ]);
         }
     }

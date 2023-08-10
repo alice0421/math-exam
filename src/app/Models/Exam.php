@@ -11,9 +11,9 @@ class Exam extends Model
 
     public $timestamps = false;
 
-    public function result()
+    public function results()
     {
-        return $this->hasOne(Result::class);
+        return $this->hasMany(Result::class);
     }
 
     public function exam_year()

@@ -14,7 +14,8 @@ class Result extends Model
     protected $fillable = [
         'exam_id',
         'user_id',
-        'is_corrected',
+        'input',
+        'is_correct',
     ];
 
     public function exam()
