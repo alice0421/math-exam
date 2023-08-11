@@ -36,7 +36,6 @@
                                     type="text"
                                     name="inputs[{{ $exam->id }}]"
                                     class="block mt-1"
-                                    value="{{ old('inputs.'. (string) $exam->id) }}" 
                                 />
                             </div>
                         @endforeach
