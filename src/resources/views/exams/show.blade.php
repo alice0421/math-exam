@@ -10,6 +10,9 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
                     <form action="{{ route('exam.store', ['exam_year' => $exam_year->id]) }}" method=POST>
+                        <p>※ 全て<span class="font-semibold">半角英数字</span>で入力してください。</p>
+                        <p class="pb-5">全角で入力しますと、正誤判定がうまくいかない可能性があります。</p>
+
                         @csrf
                         @foreach ($exams as $exam)
                             <div class="pb-10">
@@ -33,6 +36,7 @@
                                     type="text"
                                     name="inputs[{{ $exam->id }}]"
                                     class="block mt-1"
+                                    value="{{ old('inputs.'. (string) $exam->id) }}" 
                                 />
                             </div>
                         @endforeach
