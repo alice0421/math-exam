@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\ExamYear;
 use App\Models\Result;
 use Illuminate\Http\Request;
+use App\Http\Requests\ExamRequest;
 use Illuminate\Support\Facades\Auth;
 
 class ExamController extends Controller
@@ -28,17 +29,24 @@ class ExamController extends Controller
         $exams = $exam_year->exams()->get();
         
         foreach ($request->inputs as $exam_id => $input) {
+            // 入力欄が空欄かどうか
+            if (is_null($input)) {
+                $input = "未回答";
+            }
+
             // 全角 -> 半角
             $input_format = mb_convert_kana($input, "rnas");
+            // 全角 -> 半角を削除
+            $input_format = preg_replace("/( |　)/", "", $input_format);
+
             // 正誤判定
             $is_correct = $input_format == $exams->find($exam_id)->answer ? true : false;
+
             // resultsテーブルに保存
-            Result::updateOrCreate([
-                'exam_id' => $exam_id,
-                'user_id' => Auth::id(),
-                'input' => $input,
-                'is_correct' => $is_correct,
-            ]);
+            Result::updateOrCreate(
+                ['exam_id' => $exam_id, 'user_id' => Auth::id()],
+                ['input' => $input, 'is_correct' => $is_correct],
+            );
         }
 
         return redirect()->route('exam.answer', ['exam_year' => $exam_year]);
