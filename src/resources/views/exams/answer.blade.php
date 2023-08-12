@@ -47,14 +47,23 @@
                                 <p @click="open = !open" class="cursor-pointer pt-2">▼ 解説</p>
                             </template>
                             <template x-if="open">
+                                <!-- templateないだとMathJaxが効かない… -->
                                 <div class="mt-1 p-2 w-1/3 border-l-8 border-solid border-blue-500 bg-blue-200
                                         hover:translate-x-[-2px] hover:translate-y-[-2px] hover:drop-shadow-md">
-                                    {{ $result->exam->explanation_text }}
+                                    <!-- 普通にhtml文をDBに入れれば良くないか？ -->
+                                    {!! preg_replace($pattern, $replacement, $result->exam->explanation_text) !!}
                                     @if(!is_null($result->exam->explanation_img))
                                         {{ $result->exam->explanation_img }}
                                     @endif
                                 </div>
                             </template>
+                            <div class="mt-1 p-2 w-1/3 border-l-8 border-solid border-blue-500 bg-blue-200
+                                        hover:translate-x-[-2px] hover:translate-y-[-2px] hover:drop-shadow-md">
+                                {!! preg_replace($pattern, $replacement, $result->exam->explanation_text) !!}
+                                @if(!is_null($result->exam->explanation_img))
+                                    {{ $result->exam->explanation_img }}
+                                @endif
+                            </div>
                         </div>
                     @endforeach
                 </div>
