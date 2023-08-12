@@ -56,11 +56,17 @@ class ExamController extends Controller
     {
         $exams = $exam_year->exams()->get();
 
+        // 正規表現での解説の装飾。
+        $pattern = '/#Red#(.+)#Red#/i';
+        $replacement = '<span style="color: red;">${1}</span>';
+        // $exam->explanation_text = preg_replace($pattern, $replacement, $exam->explanation_text);
+
+        // 結果を格納
         $results = [];
         foreach ($exam_year->exams()->get() as $exam) {
             array_push($results, $exam->results()->where('user_id', Auth::id())->first());
         }
 
-        return view('exams.answer')->with(['exam_year' => $exam_year, 'results' => $results]);
+        return view('exams.answer')->with(['exam_year' => $exam_year, 'results' => $results, 'pattern' => '/#Red#(.+)#Red#/i', 'replacement' => '<span style="color: red;">${1}</span>']);
     }
 }
